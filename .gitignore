@@ -1,3 +1,9 @@
 .DS_Store
 .netlify/
 *.log
+
+# Raw/unedited source photos — never publish these (repo root is the Netlify
+# publish dir with no build step, so anything here would become a public URL).
+# Only the optimized, cropped images/*.jpg files should be committed.
+images/Before images/
+images/After images/
