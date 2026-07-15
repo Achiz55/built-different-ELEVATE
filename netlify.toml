@@ -1,0 +1,11 @@
+# No build step — this is a static site. Netlify serves the folder as-is.
+[build]
+  publish = "."
+
+# Basic hardening headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
