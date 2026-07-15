@@ -1,16 +1,16 @@
-# Built Different — landing page
+# Built Different: landing page
 
-A lean, static, single-page site. No framework, no build step — plain HTML, CSS,
+A lean, static, single-page site. No framework, no build step, plain HTML, CSS,
 and vanilla JS. Deploys cleanly to Netlify.
 
 ## Files
-- `index.html` — the page
-- `styles.css` — all styling (theme variables live at the top)
-- `main.js` — mobile nav, scroll reveals, form submit, results toggle
-- `netlify.toml` — tells Netlify to serve the folder as-is
+- `index.html`: the page
+- `styles.css`: all styling (theme variables live at the top)
+- `main.js`: mobile nav, scroll reveals, form submit, results toggle
+- `netlify.toml`: tells Netlify to serve the folder as-is
 
 ## Preview locally
-Because it's static, you can just open `index.html` — but a tiny local server
+Because it's static, you can just open `index.html`, but a tiny local server
 is better (the form and fonts behave more like production):
 
 ```bash
@@ -31,21 +31,17 @@ Or with Node: `npx serve` from this folder.
 4. Deploy. Point your Squarespace domain at Netlify when ready.
 
 ### The application form
-It's wired for **Netlify Forms** — no backend needed. Once deployed, submissions
+It's wired for **Netlify Forms**, no backend needed. Once deployed, submissions
 show up under *Forms* in your Netlify dashboard (and you can set email
 notifications there). It won't submit on local preview; that's expected.
 
-## Before you go live — swap these placeholders
-Search the code for the brackets. Nothing here is invented — it's yours to fill:
+## Before you go live: swap these placeholders
+Search the code for the brackets. Nothing here is invented, it's yours to fill:
 
-- **Hero video** — replace the `.video-ph` block in `index.html` with your
+- **Hero video**: replace the `.video-ph` block in `index.html` with your
   talking-head Reel/embed.
-- **`[STARTING STATS]` / `[CURRENT STATS]`** and the two `[___ lbs]` stat blocks
-  — your real numbers, in the *My Story* section.
-- **Before/Now photos** — the two `.photo-ph` blocks in *My Story*.
-- **`[DEFINED RESULT]`** — the guarantee. Pick something honest and modest.
-- **`[YOUR EMAIL]`** — in the form's error message.
-- **`[YOUR INSTAGRAM URL]`** — footer link.
+- **`[DEFINED RESULT]`**: the guarantee. Pick something honest and modest.
+- **`[YOUR EMAIL]`**: in the form's error message.
 - Optionally add real `#privacy` / `#terms` pages (footer links point to anchors
   for now).
 

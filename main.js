@@ -1,5 +1,5 @@
 /* ============================================================
-   BUILT DIFFERENT — main.js
+   BUILT DIFFERENT: main.js
    ============================================================ */
 
 /* ---- Flip this to true ONLY when you have real client results.
