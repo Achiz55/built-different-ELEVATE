@@ -366,7 +366,45 @@ section[id], #top { scroll-margin-top: calc(var(--nav-h) + 12px); }
 }
 .credentials__dot { color: var(--accent); }
 
-.story__media { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+/* Story photos: before is portrait, now is landscape. Matched height, natural
+   width per image, no cropping. Mobile stacks; ≥720px sits side by side. */
+.story__media {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.story__media .photo-ph {
+  aspect-ratio: auto;
+  display: block;
+  max-width: 100%;
+}
+.story__media .photo-ph__img {
+  position: static;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+@media (min-width: 720px) {
+  .story__media {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .story__media .photo-ph {
+    flex: var(--ar, 1) 1 0%;
+    min-width: 0;
+    max-width: none;
+  }
+  .story__media .photo-ph__img {
+    width: 100%;
+    height: auto;
+    max-width: none;
+  }
+}
+
 .photo-ph {
   aspect-ratio: 3 / 4;
   background: var(--surface-2);
