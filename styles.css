@@ -209,6 +209,7 @@ section[id], #top { scroll-margin-top: calc(var(--nav-h) + 12px); }
   padding: 8px var(--gutter) 20px;
   z-index: 49;
 }
+.nav__mobile[hidden] { display: none; }
 .nav__mobile a {
   font-family: var(--f-mono);
   font-size: .9rem;
