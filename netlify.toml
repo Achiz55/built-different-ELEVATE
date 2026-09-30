@@ -9,3 +9,16 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "SAMEORIGIN"
+
+# Internal notes stay in the repo but are never served publicly.
+[[redirects]]
+  from = "/README.md"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/images/README.md"
+  to = "/404"
+  status = 404
+  force = true
