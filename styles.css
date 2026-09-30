@@ -696,3 +696,37 @@ section[id], #top { scroll-margin-top: calc(var(--nav-h) + 12px); }
   .btn:hover { transform: none; }
   * { animation: none !important; }
 }
+
+/* ============================================================
+   WORDMARK (text only, no logo)
+   ============================================================ */
+.wordmark {
+  color: var(--accent);
+  letter-spacing: .08em;
+}
+
+/* ============================================================
+   LEGAL PAGES (privacy)
+   ============================================================ */
+.legal { max-width: 68ch; }
+.legal__updated {
+  font-family: var(--f-mono);
+  font-size: .72rem;
+  letter-spacing: .08em;
+  color: var(--muted);
+  margin-top: 18px;
+}
+.legal__body { margin-top: 40px; }
+.legal__body h2 {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  margin: 36px 0 12px;
+}
+.legal__body p,
+.legal__body li { color: var(--muted); }
+.legal__body p + p { margin-top: 14px; }
+.legal__body ul { margin: 12px 0 0 1.1em; display: grid; gap: 6px; }
+.legal__body a { color: var(--accent); border-bottom: 1px solid currentColor; }
+.legal__body a:hover { color: var(--accent-hi); }
