@@ -7,3 +7,13 @@
 # Only the optimized, cropped images/*.jpg files should be committed.
 images/Before images/
 images/After images/
+
+# Local tooling from Claude/design sessions: never commit.
+# publish = "." means anything committed becomes a public URL.
+.claude/
+.impeccable/
+.playwright/
+.playwright-cli/
+PRODUCT.md
+node_modules/
+npm-debug.log*

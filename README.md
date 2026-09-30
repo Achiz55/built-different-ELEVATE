@@ -14,7 +14,7 @@ Because it's static, you can just open `index.html`, but a tiny local server
 is better (the form and fonts behave more like production):
 
 ```bash
-cd built-different
+cd site
 python3 -m http.server 8000
 # then open http://localhost:8000
 ```
