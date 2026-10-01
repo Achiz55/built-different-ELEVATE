@@ -31,19 +31,24 @@
 
       <nav class="nav__links" aria-label="Primary">
         <a href="#about">About</a>
-        <a href="#results">Results</a>
+        <a href="#offer">The Program</a>
+        <!-- Shown by main.js only when RESULTS_LIVE is true -->
+        <a href="#results" data-results-link hidden>Results</a>
         <a href="#apply" class="nav__cta">Apply</a>
       </nav>
 
-      <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-        <span></span><span></span>
-      </button>
+      <div class="nav__actions">
+        <a href="#apply" class="nav__cta nav__apply">Apply</a>
+        <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span><span></span>
+        </button>
+      </div>
     </div>
 
     <div class="nav__mobile" id="mobileMenu" hidden>
       <a href="#about">About</a>
       <a href="#offer">The Program</a>
-      <a href="#results">Results</a>
+      <a href="#results" data-results-link hidden>Results</a>
       <a href="#apply">Apply to Work With Me</a>
     </div>
   </header>
@@ -53,23 +58,23 @@
     <!-- ============================ HERO ============================ -->
     <section class="hero">
       <div class="hero__inner">
-        <div class="hero__copy reveal">
-          <p class="eyebrow">12-Week 1:1 Coaching · Founding Cohort</p>
+        <div class="hero__copy">
+          <p class="eyebrow">12-Week 1-on-1 Coaching · Founding Cohort</p>
           <h1 class="hero__headline">
             You've tried everything and still can't gain. It isn't your genetics,
             <span class="accent-text">and I can prove it.</span>
           </h1>
           <p class="hero__subhead">
-            A 12-week 1:1 coaching program that builds a stronger, fuller frame. You train
+            A 12-week 1-on-1 coaching program that builds a stronger, fuller frame. You train
             smarter, eat to grow, and get coached the whole way by someone who did exactly that.
           </p>
           <div class="hero__actions">
-            <a href="#apply" class="btn btn--primary">Apply to Work With Me 1-on-1</a>
+            <a href="#apply" class="btn btn--primary">Apply to Work With Me</a>
             <p class="hero__note">First cohort only · A handful of spots</p>
           </div>
         </div>
 
-        <div class="hero__media reveal">
+        <div class="hero__media">
           <!-- VIDEO SPOT: still photo until the talking-head video exists.
                To swap in the video, replace the <img> below with the <video> or embed
                and keep the .framed.video-ph wrapper (it holds the box size and brackets). -->
@@ -163,7 +168,7 @@
       <div class="container">
         <div class="offer__head reveal">
           <p class="eyebrow">Built Different</p>
-          <h2 class="section__title">Twelve weeks. One-on-one. Built around your frame.</h2>
+          <h2 class="section__title">Twelve weeks. 1-on-1. Built around your frame.</h2>
           <p class="offer__lead">
             Not a template you download and figure out alone. Me, coaching you directly,
             the entire way.
@@ -188,7 +193,7 @@
           <li>
             <span class="inclusions__mark" aria-hidden="true"></span>
             <div>
-              <h3>Weekly 1:1 Zoom</h3>
+              <h3>Weekly 1-on-1 Zoom</h3>
               <p>Review the week, adjust the plan, keep you honest. Twenty focused minutes that keep you on track.</p>
             </div>
           </li>
@@ -202,7 +207,7 @@
           <li>
             <span class="inclusions__mark" aria-hidden="true"></span>
             <div>
-              <h3>Bi-weekly progress reviews</h3>
+              <h3>Progress reviews every two weeks</h3>
               <p>Photos, measurements, strength log. Progress you can actually see, so it's undeniable.</p>
             </div>
           </li>
@@ -217,7 +222,7 @@
               spots, and a founding rate for the ones who fill them. We'll go over the
               details on our call.
             </p>
-            <a href="#apply" class="btn btn--primary btn--block">Apply to Work With Me 1-on-1</a>
+            <a href="#apply" class="btn btn--primary btn--block">Apply to Work With Me</a>
           </div>
 
           <!-- Guarantee -->
@@ -245,7 +250,7 @@
     <section class="cta-band">
       <div class="container cta-band__inner reveal">
         <h2>Tired of random workouts and AI meal plans that get you nowhere?</h2>
-        <a href="#apply" class="btn btn--primary">Apply to Work With Me 1-on-1</a>
+        <a href="#apply" class="btn btn--primary">Apply to Work With Me</a>
       </div>
     </section>
 
@@ -270,60 +275,79 @@
           method="POST"
           data-netlify="true"
           netlify-honeypot="bot-field"
+          novalidate
         >
           <input type="hidden" name="form-name" value="apply" />
           <p class="form__hp" hidden>
             <label>Don't fill this out: <input name="bot-field" /></label>
           </p>
 
+          <p class="form__legend"><span class="field__req" aria-hidden="true">*</span> Required</p>
+
           <div class="form__row">
             <div class="field">
-              <label for="name">Name</label>
-              <input id="name" name="name" type="text" autocomplete="name" required />
+              <label for="name">Name <span class="field__req" aria-hidden="true">*</span></label>
+              <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-error" />
+              <p class="field__error" id="name-error" data-msg="Enter your name." hidden></p>
             </div>
             <div class="field">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" autocomplete="email" required />
+              <label for="email">Email <span class="field__req" aria-hidden="true">*</span></label>
+              <input id="email" name="email" type="email" autocomplete="email" required aria-describedby="email-error" />
+              <p class="field__error" id="email-error" data-msg="Enter a valid email address." hidden></p>
             </div>
           </div>
 
           <div class="form__row">
             <div class="field">
-              <label for="instagram">Instagram handle</label>
+              <label for="instagram">Instagram handle <span class="field__opt">Optional</span></label>
               <input id="instagram" name="instagram" type="text" placeholder="@yourhandle" />
             </div>
             <div class="field">
-              <label for="stats">Height &amp; weight</label>
-              <input id="stats" name="height_weight" type="text" placeholder="e.g. 6'4&quot;, 165 lbs" required />
+              <label for="stats">Height &amp; weight <span class="field__req" aria-hidden="true">*</span></label>
+              <input id="stats" name="height_weight" type="text" placeholder="e.g. 6'4&quot;, 165 lbs" required aria-describedby="stats-error" />
+              <p class="field__error" id="stats-error" data-msg="Enter your height and weight." hidden></p>
             </div>
           </div>
 
           <div class="field">
-            <label for="tried">What have you tried?</label>
-            <textarea id="tried" name="what_tried" rows="3" placeholder="Programs, diets, apps: what didn't stick and why."></textarea>
+            <label for="tried">What have you tried? <span class="field__req" aria-hidden="true">*</span></label>
+            <textarea id="tried" name="what_tried" rows="3" placeholder="Programs, diets, apps: what didn't stick and why." required aria-describedby="tried-error"></textarea>
+            <p class="field__error" id="tried-error" data-msg="Tell me what you've tried." hidden></p>
           </div>
 
           <div class="field">
-            <label for="why">Why now?</label>
-            <textarea id="why" name="why_now" rows="3" placeholder="What's making you serious about this today?"></textarea>
+            <label for="why">Why now? <span class="field__req" aria-hidden="true">*</span></label>
+            <textarea id="why" name="why_now" rows="3" placeholder="What's making you serious about this today?" required aria-describedby="why-error"></textarea>
+            <p class="field__error" id="why-error" data-msg="Tell me why now." hidden></p>
           </div>
 
-          <button type="submit" class="btn btn--primary btn--block">Send My Application</button>
-
-          <p class="form__success" id="formSuccess" hidden>
-            Got it. If it's a fit, I'll be in touch soon. Keep an eye on your inbox.
+          <button type="submit" class="btn btn--primary btn--block" id="applySubmit">Send My Application</button>
+          <p class="form__note">
+            I read every application myself and reply within 48 hours. If it's a fit,
+            we'll book a free 20-minute call.
           </p>
+
           <p class="form__error" id="formError" hidden>
             Something went wrong sending that. Email me directly at adam@elevatecoaching90.com and I'll sort it.
           </p>
         </form>
+
+        <!-- Replaces the form after a successful submit -->
+        <div class="framed form-done" id="formSuccess" tabindex="-1" hidden>
+          <p class="form-done__title">Application received.</p>
+          <p class="form-done__body">I read every one myself and will reply within 48 hours.</p>
+        </div>
+
+        <!-- Screen reader announcements for the form (success and errors) -->
+        <p class="sr-only" id="formStatus" role="status" aria-live="polite"></p>
       </div>
     </section>
 
     <!-- ============================ RESULTS (toggleable) ============================ -->
-    <!-- Controlled by RESULTS_LIVE in main.js. Default: OFF (honest "coming soon" state).
-         Flip to true ONLY when you have real founding-client results. Never fake these. -->
-    <section class="section section--alt" id="results">
+    <!-- Hidden until real client results exist. Set RESULTS_LIVE = true in main.js to
+         show this section, the results grid, and the Results nav links.
+         Never fake these. -->
+    <section class="section section--alt" id="results" hidden>
       <div class="container">
 
         <!-- STATE A: pre-results (shown by default) -->
@@ -335,7 +359,7 @@
             live: real photos, real numbers, no stock images and nothing invented.
             Want to be one of them?
           </p>
-          <a href="#apply" class="btn btn--ghost">Apply to Work With Me 1-on-1</a>
+          <a href="#apply" class="btn btn--ghost">Apply to Work With Me</a>
         </div>
 
         <!-- STATE B: live results grid (hidden until RESULTS_LIVE = true).
