@@ -293,6 +293,18 @@ section[id], #top { scroll-margin-top: calc(var(--nav-h) + 12px); }
   color: var(--text);
 }
 .video-ph__hint { font-size: .82rem; color: var(--muted); }
+/* still photo standing in for the video; fills the box, brackets stay on top */
+.video-ph__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 70% 50%;
+  border-radius: var(--radius);
+}
+.framed::before,
+.framed::after { z-index: 1; }
 
 /* ============================================================
    PROOF STRIP
