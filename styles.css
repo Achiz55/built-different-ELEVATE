@@ -494,6 +494,12 @@ section[id], #top { scroll-margin-top: calc(var(--nav-h) + 12px); }
 
 /* phones: shorter hero media so the proof sits higher (desktop stays 4:5) */
 @media (max-width: 899px) {
+  .proof .photo-tag {
+    left: 8px; bottom: 8px;
+    padding: 5px 8px;
+    letter-spacing: .06em;
+    white-space: nowrap;
+  }
   .hero .video-ph { aspect-ratio: 1 / 1; }
   .video-ph__media { object-position: 50% 22%; }
 }
