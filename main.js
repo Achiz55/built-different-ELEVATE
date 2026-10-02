@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupForm();
   setupResults();
   setupSeparators();
+  setupLoops();
 });
 
 /* -------------------- mobile nav -------------------- */
@@ -169,14 +170,17 @@ function setupForm() {
         success.scrollIntoView({ behavior: "smooth", block: "center" });
         success.focus({ preventScroll: true });
       }
-      announce("Application received. I read every one myself and will reply within 48 hours.");
+      announce("Application received. I read every one myself and will reply within 48 hours. Watch your inbox for my reply. If you don't see it in 48 hours, check spam.");
     } catch (err) {
       sending = false;
       if (button) {
         button.disabled = false;
         button.textContent = buttonLabel;
       }
-      if (error) error.hidden = false;
+      if (error) {
+        error.hidden = false;
+        error.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
       announce(error ? error.textContent.trim() : "Something went wrong sending that.");
     }
   });
@@ -230,5 +234,108 @@ function setupSeparators() {
   window.addEventListener("resize", () => {
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(update);
+  });
+}
+
+/* -------------------- muted video loops --------------------
+   video[data-autoloop] gets its <source data-src> attached and
+   played only when motion is welcome (no prefers-reduced-motion,
+   no data saver). Otherwise the poster stays as a still image.
+   data-lazy videos also wait until they near the viewport, and
+   take their poster from data-poster so nothing loads early.
+   Loops pause while off screen.                               */
+function setupLoops() {
+  const videos = [...document.querySelectorAll("video[data-autoloop]")];
+  if (!videos.length) return;
+
+  const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const saveData = !!(navigator.connection && navigator.connection.saveData);
+  const motionOk = () => !motionQuery.matches && !saveData;
+
+  const attach = (video) => {
+    if (video.dataset.attached) return;
+    video.dataset.attached = "1";
+    video.querySelectorAll("source[data-src]").forEach((src) => {
+      src.src = src.dataset.src;
+    });
+    video.load();
+  };
+
+  const showPoster = (video) => {
+    if (video.dataset.poster && !video.getAttribute("poster")) {
+      video.setAttribute("poster", video.dataset.poster);
+    }
+  };
+
+  // Each loop's brass "Pause" chip. A visitor's pause sticks: scrolling
+  // back into view won't restart a loop they stopped.
+  const toggleFor = (video) => video.parentElement.querySelector(".loop-toggle");
+  const setToggle = (video, paused) => {
+    const t = toggleFor(video);
+    if (!t) return;
+    const what = t.getAttribute("aria-label").replace(/^(Pause|Play) /, "");
+    t.textContent = paused ? "Play" : "Pause";
+    t.setAttribute("aria-label", (paused ? "Play " : "Pause ") + what);
+  };
+
+  const start = (video) => {
+    showPoster(video);
+    if (!motionOk() || video.dataset.userPaused) return;
+    attach(video);
+    const t = toggleFor(video);
+    if (t) t.hidden = false;
+    const p = video.play();
+    if (p && p.catch) p.catch(() => {});
+  };
+
+  videos.forEach((video) => {
+    const t = toggleFor(video);
+    if (!t) return;
+    t.addEventListener("click", () => {
+      if (video.paused) {
+        delete video.dataset.userPaused;
+        setToggle(video, false);
+        start(video);
+      } else {
+        video.dataset.userPaused = "1";
+        video.pause();
+        setToggle(video, true);
+      }
+    });
+  });
+
+  if (!("IntersectionObserver" in window)) {
+    videos.forEach(start);
+    return;
+  }
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target;
+        if (entry.isIntersecting) start(video);
+        else if (!video.paused) video.pause();
+      });
+    },
+    { rootMargin: "200px 0px" }
+  );
+
+  videos.forEach((video) => {
+    if (!video.hasAttribute("data-lazy")) start(video);
+    io.observe(video);
+  });
+
+  // If the visitor switches on reduced motion, stop and rewind to the poster
+  motionQuery.addEventListener?.("change", () => {
+    if (!motionQuery.matches) return;
+    videos.forEach((video) => {
+      const t = toggleFor(video);
+      if (t) t.hidden = true;
+      video.pause();
+      video.removeAttribute("src");
+      video.querySelectorAll("source").forEach((src) => src.removeAttribute("src"));
+      video.load();
+      delete video.dataset.attached;
+    });
   });
 }

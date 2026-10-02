@@ -1,12 +1,11 @@
 # images/
 
-Drop photos in here using these exact filenames and they'll get wired into the
-site (ask Claude to wire them once they're in place):
+Optimized copies only (originals live in ../../assets and are never committed).
+Each image ships as 480w and 800w, in JPG and WebP, cropped 4:5.
 
-- `before.jpg` — "My Story" before photo
-- `now.jpg` — "My Story" now photo
-- `hero.jpg` — static hero image (framed slot at the top of the page)
+- `proof-before-*` / `proof-after-*`: the before/now pair under the hero. Swap
+  either by replacing its four files with the same names and 4:5 crop.
+- `side-profile-*`: About section image (from Adam side mirror pic.heic).
+- `story-arm-*`: Apply section, desktop "What happens next" column (from IMG_5328.heic).
 
-Any dropped photo gets resized to ~1000px on the long edge and compressed
-before being wired in — originals are never upscaled. Until a given file
-exists, its slot keeps the placeholder so nothing breaks.
+Video loops and posters are in ../video.

@@ -59,7 +59,7 @@
     <section class="hero">
       <div class="hero__inner">
         <div class="hero__copy">
-          <p class="eyebrow">12-Week 1-on-1 Coaching · Founding Cohort</p>
+          <p class="eyebrow">12-week 1-on-1 online coaching · Founding cohort</p>
           <h1 class="hero__headline">
             You've tried everything and still can't gain. It isn't your genetics,
             <span class="accent-text">and I can prove it.</span>
@@ -75,13 +75,53 @@
         </div>
 
         <div class="hero__media">
-          <!-- VIDEO SPOT: still photo until the talking-head video exists.
-               To swap in the video, replace the <img> below with the <video> or embed
-               and keep the .framed.video-ph wrapper (it holds the box size and brackets). -->
+          <!-- HERO LOOP: muted squat loop (video/hero-squat.mp4) with its poster shown first.
+               main.js starts playback unless the visitor prefers reduced motion or has
+               data saver on; then only the poster shows. To swap in the talking-head
+               video later, replace the <video> and keep the .framed.video-ph wrapper. -->
           <div class="framed video-ph">
-            <img class="video-ph__img" src="images/now.jpg" alt="After the transformation: a built back-and-arms physique in a back double-biceps pose" width="1000" height="755" fetchpriority="high">
+            <video class="video-ph__media" data-autoloop muted loop playsinline preload="none"
+                   poster="video/hero-squat-poster.jpg" width="720" height="900"
+                   aria-label="Adam training: deficit sumo squat, side view">
+              <source data-src="video/hero-squat.mp4" type="video/mp4">
+            </video>
+            <button class="loop-toggle" type="button" aria-label="Pause the squat video" hidden>Pause</button>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ============================ PROOF ============================ -->
+    <!-- Each image is a one-file swap: replace images/proof-before-*.{jpg,webp} or
+         images/proof-after-*.{jpg,webp} (4:5, 800x1000 and 480x600). -->
+    <section class="proof" aria-label="Before and now">
+      <div class="container">
+        <div class="proof__pair">
+          <figure class="framed proof__shot">
+            <picture>
+              <source type="image/webp" srcset="images/proof-before-480.webp 480w, images/proof-before-800.webp 800w" sizes="(min-width: 900px) 520px, 46vw">
+              <img src="images/proof-before-800.jpg" srcset="images/proof-before-480.jpg 480w, images/proof-before-800.jpg 800w" sizes="(min-width: 900px) 520px, 46vw" width="800" height="1000" alt="Before: Adam, shirtless, front view" loading="lazy" decoding="async">
+            </picture>
+            <figcaption class="photo-tag">Before</figcaption>
+          </figure>
+          <figure class="framed proof__shot">
+            <picture>
+              <source type="image/webp" srcset="images/proof-after-480.webp 480w, images/proof-after-800.webp 800w" sizes="(min-width: 900px) 520px, 46vw">
+              <img src="images/proof-after-800.jpg" srcset="images/proof-after-480.jpg 480w, images/proof-after-800.jpg 800w" sizes="(min-width: 900px) 520px, 46vw" width="800" height="1000" alt="Now: Adam today in a fitted tee, front view" loading="lazy" decoding="async">
+            </picture>
+            <figcaption class="photo-tag">Now</figcaption>
+          </figure>
+        </div>
+        <p class="proof__stat">6'5" <span class="proof__sep" aria-hidden="true">·</span> 165 <span class="proof__arrow" aria-label="to">→</span> 225 lbs</p>
+      </div>
+    </section>
+
+    <!-- ============================ WATCH MY STORY (hidden) ============================ -->
+    <!-- Not rendered until the YouTube video exists. To launch: remove the hidden
+         attribute and put the embed inside .story-video__frame. -->
+    <section class="section story-video" id="story-video" hidden>
+      <div class="container">
+        <div class="framed story-video__frame"></div>
       </div>
     </section>
 
@@ -143,14 +183,12 @@
         </div>
 
         <div class="story__media reveal">
-          <div class="framed photo-ph" style="--ar: 0.8544">
-            <img class="photo-ph__img" src="images/before.jpg" alt="Before starting the program: a lean, narrow-framed 165 lb physique at 6'5&quot;" loading="lazy" width="745" height="872">
-            <span class="photo-ph__tag">Before</span>
-          </div>
-          <div class="framed photo-ph" style="--ar: 1.3245">
-            <img class="photo-ph__img" src="images/now.jpg" alt="After the transformation: a built back-and-arms physique in a back double-biceps pose" loading="lazy" width="1000" height="755">
-            <span class="photo-ph__tag">Now</span>
-          </div>
+          <figure class="framed story__shot">
+            <picture>
+              <source type="image/webp" srcset="images/side-profile-480.webp 480w, images/side-profile-800.webp 800w" sizes="(min-width: 900px) 460px, 92vw">
+              <img src="images/side-profile-800.jpg" srcset="images/side-profile-480.jpg 480w, images/side-profile-800.jpg 800w" sizes="(min-width: 900px) 460px, 92vw" width="800" height="1000" alt="Adam today, side profile in a fitted tee" loading="lazy" decoding="async">
+            </picture>
+          </figure>
         </div>
 
         <div class="credentials" aria-label="Credentials">
@@ -175,6 +213,24 @@
           </p>
         </div>
 
+        <!-- The core of the program, given priority over the other inclusions.
+             Loop is lazy-loaded by main.js when it nears the viewport. -->
+        <div class="core reveal">
+          <div class="framed core__media">
+            <video class="core__video" data-autoloop data-lazy muted loop playsinline preload="none"
+                   data-poster="video/coaching-curl-poster.jpg" width="720" height="900"
+                   aria-label="Coaching in action: Adam and a training partner doing dumbbell curls">
+              <source data-src="video/coaching-curl.mp4" type="video/mp4">
+            </video>
+            <button class="loop-toggle" type="button" aria-label="Pause the coaching video" hidden>Pause</button>
+          </div>
+          <div class="core__copy">
+            <span class="inclusions__mark" aria-hidden="true"></span>
+            <h3 class="core__title">Daily accountability via private chat</h3>
+            <p class="core__body">Form checks, questions, daily check-ins. It's the core of the whole thing, the part a free plan or an app can't be.</p>
+          </div>
+        </div>
+
         <ul class="inclusions reveal">
           <li>
             <span class="inclusions__mark" aria-hidden="true"></span>
@@ -195,13 +251,6 @@
             <div>
               <h3>Weekly 1-on-1 Zoom</h3>
               <p>Review the week, adjust the plan, keep you honest. Twenty focused minutes that keep you on track.</p>
-            </div>
-          </li>
-          <li>
-            <span class="inclusions__mark" aria-hidden="true"></span>
-            <div>
-              <h3>Daily accountability via private chat</h3>
-              <p>Form checks, questions, daily check-ins. It's the core of the whole thing, the part a free plan or an app can't be.</p>
             </div>
           </li>
           <li>
@@ -266,6 +315,24 @@
           </p>
         </div>
 
+        <!-- What happens next: beside the form on desktop, above it on mobile -->
+        <aside class="next reveal" aria-labelledby="next-title">
+          <h3 class="next__title" id="next-title">What happens next</h3>
+          <ol class="next__steps">
+            <li><span class="next__num" aria-hidden="true">1</span>Apply (2 minutes)</li>
+            <li><span class="next__num" aria-hidden="true">2</span>I reply within 48 hours</li>
+            <li><span class="next__num" aria-hidden="true">3</span>Free 20&#8209;minute call</li>
+            <li><span class="next__num" aria-hidden="true">4</span>Start your 12 weeks</li>
+          </ol>
+          <figure class="framed next__shot">
+            <picture>
+              <source type="image/webp" srcset="images/story-arm-480.webp 480w, images/story-arm-800.webp 800w" sizes="380px">
+              <img src="images/story-arm-800.jpg" srcset="images/story-arm-480.jpg 480w, images/story-arm-800.jpg 800w" sizes="380px" width="800" height="1000" alt="Adam in the gym, close side profile showing his arm" loading="lazy" decoding="async">
+            </picture>
+          </figure>
+        </aside>
+
+        <div class="apply__main">
         <!-- Netlify Forms: works automatically once deployed to Netlify.
              Local preview won't submit. That's expected. -->
         <form
@@ -321,14 +388,15 @@
             <p class="field__error" id="why-error" data-msg="Tell me why now." hidden></p>
           </div>
 
-          <button type="submit" class="btn btn--primary btn--block" id="applySubmit">Send My Application</button>
           <p class="form__note">
             I read every application myself and reply within 48 hours. If it's a fit,
-            we'll book a free 20-minute call.
+            we'll book a free 20&#8209;minute call.
           </p>
+          <button type="submit" class="btn btn--primary btn--block" id="applySubmit">Send My Application</button>
+          <p class="form__privacy"><a href="/privacy.html">How we handle your info</a></p>
 
           <p class="form__error" id="formError" hidden>
-            Something went wrong sending that. Email me directly at adam@elevatecoaching90.com and I'll sort it.
+            Something went wrong sending that. Email me directly at <a href="mailto:adam@elevatecoaching90.com">adam@elevatecoaching90.com</a> and I'll sort it.
           </p>
         </form>
 
@@ -336,10 +404,12 @@
         <div class="framed form-done" id="formSuccess" tabindex="-1" hidden>
           <p class="form-done__title">Application received.</p>
           <p class="form-done__body">I read every one myself and will reply within 48 hours.</p>
+          <p class="form-done__next">Watch your inbox for my reply. If you don't see it in 48 hours, check spam.</p>
         </div>
 
         <!-- Screen reader announcements for the form (success and errors) -->
         <p class="sr-only" id="formStatus" role="status" aria-live="polite"></p>
+        </div>
       </div>
     </section>
 
