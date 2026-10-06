@@ -161,12 +161,6 @@ section[id], #top { scroll-margin-top: calc(var(--nav-h) + 12px); }
   align-items: center;
   gap: 10px;
 }
-.nav__mark {
-  width: 11px; height: 11px;
-  border: 2px solid var(--accent);
-  border-right: 0; border-bottom: 0;
-  display: inline-block;
-}
 .nav__links { display: none; }
 .nav__links a {
   font-family: var(--f-mono);
@@ -983,11 +977,16 @@ section[id], #top { scroll-margin-top: calc(var(--nav-h) + 12px); }
 }
 
 /* ============================================================
-   WORDMARK (text only, no logo)
+   WORDMARK (logo SVG, brass on transparent; sized to the old text cap height)
    ============================================================ */
-.wordmark {
-  color: var(--accent);
-  letter-spacing: .08em;
+.brand-wordmark {
+  display: block;
+  height: 12px;
+  width: auto;
+}
+.nav__brand .brand-wordmark { height: 14px; }
+@media (min-width: 900px) {
+  .nav__brand .brand-wordmark { height: 15px; }
 }
 
 /* ============================================================
