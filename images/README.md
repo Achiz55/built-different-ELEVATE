@@ -10,4 +10,6 @@ Each image ships as 480w and 800w, in JPG and WebP, cropped 4:5.
 
 - `story-poster-*`: hero story video poster, 16:9, 640w and 1280w in JPG and WebP (from assets/videos/story/edit/elevate-story_poster.jpg).
 
+- `og-share.png`: link preview card, 1200x630 (Now photo from ADAM mirror pic full body.HEIC + brass wordmark). Referenced by og:image and twitter:image in index.html.
+
 Video loops and posters are in ../video.
