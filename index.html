@@ -79,17 +79,18 @@
         </div>
 
         <div class="hero__media">
-          <!-- HERO LOOP: muted squat loop (video/hero-squat.mp4) with its poster shown first.
-               main.js starts playback unless the visitor prefers reduced motion or has
-               data saver on; then only the poster shows. To swap in the talking-head
-               video later, replace the <video> and keep the .framed.video-ph wrapper. -->
-          <div class="framed video-ph">
-            <video class="video-ph__media" data-autoloop muted loop playsinline preload="none"
-                   poster="video/hero-squat-poster.jpg" width="720" height="900"
-                   aria-label="Adam training: deficit sumo squat, side view">
-              <source data-src="video/hero-squat.mp4" type="video/mp4">
-            </video>
-            <button class="loop-toggle" type="button" aria-label="Pause the squat video" hidden>Pause</button>
+          <!-- HERO VIDEO: click-to-play facade for the story video. Nothing from YouTube
+               loads until the play button is pressed; main.js then swaps in a
+               youtube-nocookie.com player. To change the video, set data-youtube-id. -->
+          <div class="framed story-player" data-youtube-id="PJKvFX130pk" data-title="Adam's story video">
+            <picture>
+              <source type="image/webp" srcset="images/story-poster-640.webp 640w, images/story-poster-1280.webp 1280w" sizes="(min-width: 900px) 560px, calc(100vw - 44px)">
+              <img class="story-player__poster" src="images/story-poster-1280.jpg" srcset="images/story-poster-640.jpg 640w, images/story-poster-1280.jpg 1280w" sizes="(min-width: 900px) 560px, calc(100vw - 44px)" width="1280" height="720" alt="" fetchpriority="high" decoding="async">
+            </picture>
+            <button class="story-player__play" type="button" aria-label="Play Adam's story video, 4 minutes 38 seconds">
+              <span class="story-player__icon" aria-hidden="true"></span>
+              <span class="story-player__time" aria-hidden="true">4:38</span>
+            </button>
           </div>
         </div>
       </div>
@@ -117,15 +118,6 @@
           </figure>
         </div>
         <p class="proof__stat">6'5" <span class="proof__sep" aria-hidden="true">·</span> 165 <span class="proof__arrow" aria-label="to">→</span> 225 lbs</p>
-      </div>
-    </section>
-
-    <!-- ============================ WATCH MY STORY (hidden) ============================ -->
-    <!-- Not rendered until the YouTube video exists. To launch: remove the hidden
-         attribute and put the embed inside .story-video__frame. -->
-    <section class="section story-video" id="story-video" hidden>
-      <div class="container">
-        <div class="framed story-video__frame"></div>
       </div>
     </section>
 

@@ -38,8 +38,8 @@ notifications there). It won't submit on local preview; that's expected.
 ## Before you go live: swap these placeholders
 Search the code for the brackets. Nothing here is invented, it's yours to fill:
 
-- **Hero video**: replace the `.video-ph` block in `index.html` with your
-  talking-head Reel/embed.
+- **Hero video**: the story video is a click-to-play YouTube facade. Set its
+  video ID in `data-youtube-id` on `.story-player` in `index.html`.
 - **`[DEFINED RESULT]`**: the guarantee. Pick something honest and modest.
 - **`[YOUR EMAIL]`**: in the form's error message.
 - Optionally add real `#privacy` / `#terms` pages (footer links point to anchors

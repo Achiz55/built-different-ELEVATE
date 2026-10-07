@@ -270,31 +270,74 @@ section[id], #top { scroll-margin-top: calc(var(--nav-h) + 12px); }
   color: var(--muted);
 }
 
-/* video placeholder */
-.video-ph {
-  aspect-ratio: 4 / 5;
-  background:
-    radial-gradient(120% 80% at 50% 0%, #211d15 0%, var(--surface) 70%);
+/* hero story video: 16:9 poster with a brass play button (click-to-play facade).
+   main.js swaps the poster for the YouTube player; brackets stay on top. */
+.story-player {
+  aspect-ratio: 16 / 9;
+  background: var(--surface-2);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  text-align: center;
-  padding: 24px;
 }
-/* hero loop (or still); fills the 4:5 box, brackets stay on top */
-.video-ph__media,
-.video-ph__img {
+.story-player picture,
+.story-player__poster,
+.story-player__frame {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: 70% 50%;
+  border: 0;
   border-radius: var(--radius);
+}
+.story-player__poster { object-fit: cover; }
+.story-player__play {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+/* sits on the plain wall right of Adam's face, not over it */
+.story-player__icon {
+  position: absolute;
+  left: 77%;
+  top: 44%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 6px 28px rgba(14, 13, 12, .55);
+  transition: background-color .2s ease, transform .2s ease;
+}
+/* play triangle in ink, nudged right so it reads optically centered */
+.story-player__icon::before {
+  content: "";
+  margin-left: 6px;
+  border-style: solid;
+  border-width: 14px 0 14px 23px;
+  border-color: transparent transparent transparent var(--ink);
+}
+.story-player__play:hover .story-player__icon { background: var(--accent-hi); transform: translate(-50%, -50%) scale(1.04); }
+.story-player__play:focus-visible { outline: none; }
+.story-player__play:focus-visible .story-player__icon {
+  background: var(--accent-hi);
+  outline: 2px solid var(--accent-hi);
+  outline-offset: 5px;
+}
+.story-player__time {
+  position: absolute;
+  right: 12px; bottom: 12px;
+  padding: 6px 10px;
+  background: var(--chip);
+  border-radius: 2px;
+  font-family: var(--f-mono);
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  color: var(--accent);
 }
 .framed::before,
 .framed::after { z-index: 1; }
@@ -486,7 +529,7 @@ section[id], #top { scroll-margin-top: calc(var(--nav-h) + 12px); }
 .loop-toggle:hover { border-color: var(--accent); }
 .loop-toggle[hidden] { display: none; }
 
-/* phones: shorter hero media so the proof sits higher (desktop stays 4:5) */
+/* phones: compact photo labels on the proof pair */
 @media (max-width: 899px) {
   .proof .photo-tag {
     left: 8px; bottom: 8px;
@@ -494,8 +537,6 @@ section[id], #top { scroll-margin-top: calc(var(--nav-h) + 12px); }
     letter-spacing: .06em;
     white-space: nowrap;
   }
-  .hero .video-ph { aspect-ratio: 1 / 1; }
-  .video-ph__media { object-position: 50% 22%; }
 }
 
 /* -------- proof (directly under the hero) -------- */
@@ -522,14 +563,6 @@ section[id], #top { scroll-margin-top: calc(var(--nav-h) + 12px); }
 }
 .proof__sep { color: var(--muted); margin-inline: .2em; }
 .proof__arrow { color: var(--accent); margin-inline: .15em; }
-
-/* hidden until the YouTube embed exists */
-.story-video__frame {
-  aspect-ratio: 16 / 9;
-  background: var(--surface-2);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-}
 
 /* -------- offer -------- */
 .offer__head { max-width: 40ch; margin-bottom: 44px; }
@@ -936,7 +969,21 @@ section[id], #top { scroll-margin-top: calc(var(--nav-h) + 12px); }
   .nav__actions, .nav__mobile { display: none !important; }
 
   .hero { padding: 96px 0 64px; }
-  .hero__inner { grid-template-columns: 1.15fr .85fr; align-items: center; gap: 60px; }
+  /* headline runs full width; subhead + CTA sit beside the 16:9 story video */
+  .hero__inner {
+    grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+    grid-template-areas: "eyebrow eyebrow" "head head" "sub media" "actions media";
+    grid-template-rows: auto auto auto 1fr;
+    gap: 0 56px;
+  }
+  .hero__copy { display: contents; }
+  .hero__copy > .eyebrow { grid-area: eyebrow; }
+  .hero__headline { grid-area: head; margin-bottom: 40px; text-wrap: balance; }
+  .hero__subhead { grid-area: sub; }
+  .hero__actions { grid-area: actions; }
+  .hero__media { grid-area: media; }
+  .story-player__icon { width: 96px; height: 96px; }
+  .story-player__icon::before { margin-left: 8px; border-width: 17px 0 17px 28px; }
 
   .story { grid-template-columns: 1.1fr .9fr; align-items: start; }
   .story__media { justify-self: end; width: 100%; }
@@ -973,6 +1020,7 @@ section[id], #top { scroll-margin-top: calc(var(--nav-h) + 12px); }
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .btn:hover { transform: none; }
+  .story-player__play:hover .story-player__icon { transform: translate(-50%, -50%); }
   * { animation: none !important; }
 }
 

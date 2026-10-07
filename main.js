@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupResults();
   setupSeparators();
   setupLoops();
+  setupStoryPlayer();
 });
 
 /* -------------------- mobile nav -------------------- */
@@ -337,5 +338,48 @@ function setupLoops() {
       video.load();
       delete video.dataset.attached;
     });
+  });
+}
+
+/* -------------------- hero story video --------------------
+   Click-to-play facade: only the poster and play button load
+   with the page. Pressing play (click, Enter or Space) swaps in
+   the youtube-nocookie.com player, playing with sound and
+   captions on. Hovering or focusing the button warms up the
+   connection first, so playback starts faster.               */
+function setupStoryPlayer() {
+  document.querySelectorAll(".story-player[data-youtube-id]").forEach((player) => {
+    const button = player.querySelector(".story-player__play");
+    if (!button) return;
+    const origin = "https://www.youtube-nocookie.com";
+
+    const warm = () => {
+      if (document.querySelector(`link[rel="preconnect"][href="${origin}"]`)) return;
+      const link = document.createElement("link");
+      link.rel = "preconnect";
+      link.href = origin;
+      document.head.appendChild(link);
+    };
+    button.addEventListener("pointerenter", warm, { once: true });
+    button.addEventListener("focus", warm, { once: true });
+
+    button.addEventListener("click", () => {
+      const params = new URLSearchParams({
+        autoplay: "1",
+        cc_load_policy: "1",
+        cc_lang_pref: "en",
+        hl: "en",
+        rel: "0",
+        playsinline: "1",
+      });
+      const iframe = document.createElement("iframe");
+      iframe.className = "story-player__frame";
+      iframe.src = `${origin}/embed/${encodeURIComponent(player.dataset.youtubeId)}?${params}`;
+      iframe.title = player.dataset.title || "Video";
+      iframe.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+      iframe.allowFullscreen = true;
+      player.replaceChildren(iframe);
+      iframe.focus({ preventScroll: true });
+    }, { once: true });
   });
 }
